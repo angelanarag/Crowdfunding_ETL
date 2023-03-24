@@ -52,6 +52,9 @@ CREATE TABLE campaign (
 	FOREIGN KEY (category_id) REFERENCES category (category_id),
 	FOREIGN KEY (subcategory_id) REFERENCES subcategory (subcategory_id));
 
+-- CSV files are loaded in the order the tables were created
+-- Load category, then subcategory, then contacts, then campaign
+-- CSV files were loaded using pgAdmin4
 -- After importing the CSV file, check the data loaded
 SELECT *
 FROM category;
@@ -65,7 +68,7 @@ FROM contacts;
 SELECT *
 FROM campaign;
 
--- Create view from query
+-- In addition to the above select statements, created a view from the 4 tables to display join
 CREATE VIEW crowdfunding_view AS
 SELECT c.company_name, c.pledged, ct.first_name, ct.last_name, ct.email, ca.category, sc.subcategory
 FROM campaign c
